@@ -1,24 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Employee</title>
-    @vite('resources/sass/app.scss')
-</head>
-<body>
+@extends('layouts.app')
 
-    @extends('layouts.app')
-
-    @section('content')
-
+@section('content')
     <div class="container-sm mt-5">
+
         <form action="{{ route('employees.update', ['employee' => $employee->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('put')
             <div class="row justify-content-center">
-                <div class="p-5 bg-light rounded-3 col-xl-6 border">
+                <div class="p-5 bg-light rounded-3 col-xl-6">
                     <div class="mb-3 text-center">
                         <i class="bi-person-circle fs-1"></i>
                         <h4>Edit Employee</h4>
@@ -27,14 +16,14 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="firstName" class="form-label">First Name</label>
-                            <input class="form-control @error('firstName') is-invalid @enderror" type="text" name="firstName" id="firstName" value="{{ $errors->any() ? old('firstName') : $employee->firstname }}" placeholder="Enter First Name">
+                            <input class="form-control @error('firstName') is-invalid @enderror" type="text" name="firstName" id="firstName" value="{{ $errors->any() ? old('firstName') : $employee->firstName }}" placeholder="Enter First Name">
                             @error('firstName')
                                 <div class="text-danger"><small>{{ $message }}</small></div>
                             @enderror
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="lastName" class="form-label">Last Name</label>
-                            <input class="form-control @error('lastName') is-invalid @enderror" type="text" name="lastName" id="lastName" value="{{ $errors->any() ? old('lastName') : $employee->lastname }}" placeholder="Enter Last Name">
+                            <input class="form-control @error('lastName') is-invalid @enderror" type="text" name="lastName" id="lastName" value="{{ $errors->any() ? old('lastName') : $employee->lastName }}" placeholder="Enter Last Name">
                             @error('lastName')
                                 <div class="text-danger"><small>{{ $message }}</small></div>
                             @enderror
@@ -72,7 +61,7 @@
                             @enderror
                         </div>
                         <div class="col-md-12 mb-3">
-                            <label for="cv" class="form-label">Curriculum Vitae (CV)</label>
+                            <label for="age" class="form-label">Curriculum Vitae (CV)</label>
                             @if ($employee->original_filename)
                                 <h5>{{ $employee->original_filename }}</h5>
                                 <a href="{{ route('employees.downloadFile', ['employeeId' => $employee->id]) }}" class="btn btn-primary btn-sm mt-2">
@@ -100,7 +89,3 @@
         </form>
     </div>
     @endsection
-
-    @vite('resources/js/app.js')
-</body>
-</html>
